@@ -13,8 +13,14 @@ BALL_WIDTH = 25
 
 
 def draw(shield, ball_x, ball_y):
+	# Clear the Screen
+	WIN.fill((0, 0, 0))
+
+	# Draw The Ball and Shield
 	pygame.draw.circle(WIN, "red", (ball_x, ball_y), BALL_WIDTH)
 	pygame.draw.rect(WIN, "white", shield)
+
+	# Update the Display
 	pygame.display.update()
 
 
@@ -31,12 +37,27 @@ def main():
 	ball_x = int(WIDTH/2)
 	ball_y = int(HEIGHT - SHIELD_HEIGHT - 50 - BALL_WIDTH)
 
+	ball_vel_x = 5
+	ball_vel_y = 5
+
+	clock = pygame.time.Clock()
+
 	while run:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				run = False
 
 		draw(shield, ball_x, ball_y)
+
+		if ball_x+BALL_WIDTH >= WIDTH or ball_x-BALL_WIDTH <= 0:
+			ball_vel_x = -ball_vel_x
+		if ball_y+BALL_WIDTH >= HEIGHT or ball_y-BALL_WIDTH <= 0:
+			ball_vel_y = -ball_vel_y
+
+		ball_x += ball_vel_x
+		ball_y += ball_vel_y
+
+		clock.tick(60)
 
 
 if __name__ == "__main__":
