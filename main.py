@@ -1,5 +1,6 @@
 # --------------------------Creating Classic Brick Breaker Game with Python-------------------------- #
 import pygame
+pygame.font.init()
 
 # Create Global Variables
 WIDTH, HEIGHT = 800, 675
@@ -16,10 +17,16 @@ BRICK_HEIGHT = 25
 
 BRICKS_PER_ROW = 10
 
+FONT = pygame.font.SysFont("comicsans", 150)
 
-def draw(shield, ball_x, ball_y, bricks):
+
+def draw(shield, ball_x, ball_y, bricks, level):
 	# Clear the Screen
 	WIN.fill((0, 0, 0))
+
+	# Draw Level
+	level_label = FONT.render(str(level), 1, "yellow")
+	WIN.blit(level_label, (WIDTH/2-level_label.get_width()/2, HEIGHT/2-level_label.get_height()/2))
 
 	# Draw The Ball and Shield
 	pygame.draw.circle(WIN, "red", (ball_x, ball_y), BALL_WIDTH)
@@ -108,7 +115,7 @@ def main():
 		ball_x += ball_vel_x
 		ball_y += ball_vel_y
 
-		draw(shield, ball_x, ball_y, bricks)
+		draw(shield, ball_x, ball_y, bricks, level)
 
 		clock.tick(60)
 
