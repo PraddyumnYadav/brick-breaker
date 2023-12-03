@@ -42,6 +42,7 @@ def main():
         SHIELD_WIDTH,
         SHIELD_HEIGHT,
     )
+    shield_vel = 10
 
     ball_x = int(WIDTH / 2)
     ball_y = int(HEIGHT - SHIELD_HEIGHT - 50 - BALL_WIDTH)
@@ -97,6 +98,12 @@ def main():
             ):
                 bricks.remove(brick)
                 ball_vel_y = -ball_vel_y
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            shield.x -= shield_vel
+        if keys[pygame.K_RIGHT]:
+            shield.x += shield_vel
 
         ball_x += ball_vel_x
         ball_y += ball_vel_y
