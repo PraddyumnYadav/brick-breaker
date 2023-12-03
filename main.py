@@ -57,7 +57,7 @@ def main():
     while run:
         if len(bricks) == 0:
             level += 1
-            x = int(WIDTH/2 - BRICK_WIDTH*5 - 10*5)
+            x = int(WIDTH / 2 - BRICK_WIDTH * 5 - 10 * 5)
             y = 50
             for _ in range(level):
                 for _ in range(BRICKS_PER_ROW):
@@ -66,7 +66,7 @@ def main():
                     bricks.append(brick)
                 # Move to the next row
                 y += BRICK_HEIGHT + 10
-                x = 50  # Reset x position for the next row
+                x = int(WIDTH / 2 - BRICK_WIDTH * 5 - 10 * 5)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -88,6 +88,15 @@ def main():
             )
         ):
             ball_vel_y = -ball_vel_y
+
+        for brick in bricks:
+            if brick.colliderect(
+                pygame.Rect(
+                    ball_x - BALL_WIDTH, ball_y - BALL_WIDTH, BALL_WIDTH, BALL_WIDTH
+                )
+            ):
+                bricks.remove(brick)
+                ball_vel_y = -ball_vel_y
 
         ball_x += ball_vel_x
         ball_y += ball_vel_y
