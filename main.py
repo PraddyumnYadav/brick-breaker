@@ -49,9 +49,21 @@ def main():
 
 		draw(shield, ball_x, ball_y)
 
+		# Check Collision from Walls
 		if ball_x+BALL_WIDTH >= WIDTH or ball_x-BALL_WIDTH <= 0:
 			ball_vel_x = -ball_vel_x
 		if ball_y+BALL_WIDTH >= HEIGHT or ball_y-BALL_WIDTH <= 0:
+			ball_vel_y = -ball_vel_y
+
+		# Check Collision from Shield
+		if shield.colliderect(
+			pygame.Rect(
+				ball_x - BALL_WIDTH,
+				ball_y - BALL_WIDTH,
+				2 * BALL_WIDTH,
+				2 * BALL_WIDTH,
+			)
+		):
 			ball_vel_y = -ball_vel_y
 
 		ball_x += ball_vel_x
